@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<script>
+	
+	function processAmount(){ 
+		var numOfLiters= parseInt(document.estore.noOfLiters.value);
+		var result;
+		var perLiterAmount;
+		var gasType= document.estore.gastype.value;
+		var creditCard= document.estore.creditCardNumber.value;
+		switch(gasType){
+		case "Premium": 
+			
+				perLiterAmount= 50;
+				result= 50*numOfLiters;
+				break;
+		case "Diesel":
+			   perLiterAmount= 38;
+			  result= 38*numOfLiters;
+				break;
+			
+		case "Unleaded":
+			   perLiterAmount= 44;
+				result= 44*numOfLiters;
+				break;
+		}
+		
+
+		var vat= result*0.12;
+		document.write("<h1 style='text-align:center'>Blackwater</h1>");
+		document.write("<p style='text-align:center'><img src='images/cersie.png' style='width:200px;height:200px'></p>");
+		document.write("<p style='text-align:center'><span style='color:red'><tt>Burn the land, boil the sea, get your gas right here.</tt></span></p>");
+		
+		document.write("<p id='demo'></p>");
+		document.getElementById("demo").innerHTML = Date();
+		
+		document.write("<p style='text-align:center'><b>VAT:</b> " + vat + "</p>");
+		document.write("<p style='text-align:center'><b>Fuel Type:</b> " + gasType + "</p>");
+		document.write("<p style='text-align:center'><b>Price per Liter amount:</b> " + perLiterAmount + "</p>");
+		document.write("<p style='text-align:center'><b>Purchase Amount:</b> " + result + "</p>");
+		document.write("<hr width='15%'/>")
+		document.write("<p style='text-align:center'><b>TOTAL AMOUNT:</b> " + (result+vat) + "</p>");
+		document.write("<p style='text-align:center'>Thank you come again!")
+				
+			
+		var LuhnCheck = (function()
+		{
+			var luhnArr = [0, 2, 4, 6, 8, 1, 3, 5, 7, 9];
+			return function(str)
+			{
+				var counter = 0;
+				var incNum;
+				var odd = false;
+				var temp = String(str).replace(/[^\d]/g, "");
+				if ( temp.length == 0)
+					return false;
+				for (var i = temp.length-1; i >= 0; --i)
+				{
+					incNum = parseInt(temp.charAt(i), 10);
+					counter += (odd = !odd)? incNum : luhnArr[incNum];
+				}
+				return (counter%10 == 0);
+			}
+		})(); 
+		
+		if(LuhnCheck(creditCard)==true){
+			document.write("<p style='text-align:center'><b>Credit Card:</b>"+creditCard + "</p>");
+		}
+		
+		else
+			alert("INVALID CC NUMBER");
+		
+		
+		document.write("<form action='index.html'>");
+		document.write("	<input type='submit' style='margin-left: 50%' value='GO BACK!'>");
+		document.write("</form>");	
+		
+	}
+</script>
+<meta charset="ISO-8859-1">
+<title>Gasoline eStore</title>
+
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+	<div class="container">
+        <form name='estore' id='estore'>
+       <fieldset>
+       			<legend><h1 style="text-align:center">Blackwater</h1></legend>
+       				
+       				<p style="text-align:center"><img src="images/cersie.png" style="width:200px;height:200px"></p>
+       				
+       				<p style="text-align:center"><b>WELCOME TO THE BLACKWATER GAS STATION</b></p>
+       				<p style="text-align:center"><span style="color:red"><tt>Burn the land, boil the sea, get your gas right here.</tt></span></p>
+       				<br/>
+       				
+       				<p style="text-align:center"><b>Enter gasoline type:</b>
+       					<select name='gastype' id='gastype'>
+       						<option value="Premium"> Premium</option>
+       						<option value="Unleaded"> Unleaded</option>
+       						<option value="Diesel"> Diesel</option>
+       						</select></p>
+       						
+       				<p style="text-align:center"><b> Enter number of Liters: </b>
+       					<input type='number' name='noOfLiters' id='noOfLiters'/>
+       				</p>
+       				
+       				<p style="text-align:center"><b> Enter Credit Card Number: </b>
+       					<input type="number" name='creditCardNumber' id='creditCardNumber' required='required'/>
+       				</p>
+       				
+       				<p style="text-align:center">
+						<input type='button' value='Submit' 
+							onclick="processAmount()"/>&nbsp;&nbsp;&nbsp;
+						<input type='reset'/>
+					</p>	
+       						
+       						
+       				
+       </fieldset>
+       		</form>
+       			</div>
+</body>
+</html>
